@@ -24,13 +24,22 @@ Voor de gebruiker zijn er momenteel nog geen bijzonderheden als er ingelogd word
 9. Een venster zal openen met de package installer. Druk vervolgens op **Browse** en zoek voor ``Microsoft.Data.Sqlite`` (versie 7.0.5).
 10. Installeer deze package. Wacht totdat de package klaar is met installeren. 
 11. Sluit het package manager venster. Druk vervolgens op de groene knop bovenaan de pagina, waar vakantie-crud staat. Hiermee start je het project. 
-12. En klaar! Het project zal als het goed is werken. De database is erbij geleverd dus daar hoeft u geen zorgen om te maken. 
+12. En klaar! Het project zal als het goed is werken. De database is erbij geleverd dus daar hoeft u geen zorgen om te maken.
 
-``OPMERKING!``
-Momenteel is er nog niet een manier om een custom plaatje te uploaden in de dashboard. Let er dus op dat als je een bestemming verwijderd, deze weer toegevoegd kan worden, maar wel alleen met
-de namen hieronder:
+## 💻 Inloggegevens
+
+``Gebruiker``<br>
+gebruikersnaam: gebruiker<br>
+wachtwoord: gebruiker<br>
+
+``Administrator``<br>
+gebruikersnaam: admin<br>
+wachtwoord: admin
 
 ## 🌍 Bestemming Plaatjes
+
+Momenteel is er nog niet een manier om een custom plaatje te uploaden in de dashboard. Let er dus op dat als je een bestemming verwijderd, deze weer toegevoegd kan worden, maar wel alleen met
+de namen hieronder:
 
 australie.jpg - Australië<br>
 china.jpg - China<br>
@@ -51,16 +60,6 @@ zuidafrika.jpg - Zuid-Afrika<br><br>
 
 Wanneer je dus bijvoorbeeld een bestemming wilt toevoegen, moet je bij de afbeelding sectie één van de bovenstaande .jpg bestanden toevoegen. Stel je wilt dus bijvoorbeeld Spanje toevoegen, moet je
 spanje.jpg invullen in dat veld. Momenteel zijn alleen deze bestemmingen dus mogelijk. Wees er ook zeker van dat de .jpg goed is ingevuld, anders zal deze niet werken.
-
-## 💻 Inloggegevens
-
-``Gebruiker``<br>
-gebruikersnaam: gebruiker<br>
-wachtwoord: gebruiker<br>
-
-``Administrator``<br>
-gebruikersnaam: admin<br>
-wachtwoord: admin
 
 ## ©️ Copyright
 
