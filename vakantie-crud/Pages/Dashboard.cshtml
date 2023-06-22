@@ -1,0 +1,204 @@
+﻿@page
+@model vakantie_crud.Pages.DashboardModel
+@{
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="jumbotron bg-light">
+                <div class="row">
+                    <div class="col">
+                        <h2 class="mb-4">Dashboard</h2>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-success" data-toggle="modal" data-target="#addModal">Voeg nieuwe bestemming toe</button>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Bestemming</th>
+                            <th>Beschrijving</th>
+                            <th>Modal Beschrijving</th>
+                            <th>Afbeelding</th>
+                            <th>Prijs</th>
+                            <th>Acties</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Models.Bestemming bestemming in Model.Bestemmingen)
+                        {
+                            <tr>
+                                <td>@bestemming.bestemmingNaam</td>
+                                <td>@bestemming.bestemmingBeschrijving</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-@bestemming.id">
+                                        Bekijken
+                                    </button>
+                                </td>
+                                <td><img src="~/images/@bestemming.afbeelding" alt="Bestemming 1" class="img-thumbnail"></td>
+                                <td>€@bestemming.bestemmingPrijs</td>
+                                <td>
+                                    <div class="btn-toolbar" role="toolbar">
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal-@bestemming.id">
+                                                Aanpassen
+                                            </button>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal-@bestemming.id">
+                                                Verwijderen
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@foreach (Models.Bestemming bestemming in Model.Bestemmingen)
+{
+    <!-- Modal -->
+    <div class="modal fade" id="modal-@bestemming.id" tabindex="-1" role="dialog" aria-labelledby="modalLabel-@bestemming.id" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel-@bestemming.id">Modal Beschrijving</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @bestemming.modalBeschrijving
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal-@bestemming.id" tabindex="-1" role="dialog" aria-labelledby="editModalLabel-@bestemming.id" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel-@bestemming.id">Bestemming aanpassen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" asp-page-handler="UpdateDestination">
+                    <div class="modal-body">
+                        <input type="hidden" name="destinationId" value="@bestemming.id" />
+                        <div class="form-group">
+                            <label for="editDestinationName-@bestemming.id">Bestemming</label>
+                            <input type="text" class="form-control" id="editDestinationName-@bestemming.id" name="destinationName" value="@bestemming.bestemmingNaam" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="editDestinationDescription-@bestemming.id">Beschrijving</label>
+                            <textarea class="form-control" id="editDestinationDescription-@bestemming.id" name="destinationDescription" rows="3" required>@bestemming.bestemmingBeschrijving</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="editDestinationImage-@bestemming.id">Afbeelding</label>
+                            <input type="text" class="form-control" id="editDestinationImage-@bestemming.id" name="destinationImage" value="@bestemming.afbeelding" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="editDestinationPrice-@bestemming.id">Prijs</label>
+                            <input type="text" class="form-control" id="editDestinationPrice-@bestemming.id" name="destinationPrice" value="@bestemming.bestemmingPrijs" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="editDestinationModalDescription-@bestemming.id">Modal Beschrijving</label>
+                            <textarea class="form-control" id="editDestinationModalDescription-@bestemming.id" name="modalDescription" rows="3" required>@bestemming.modalBeschrijving</textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleren</button>
+                        <button type="submit" class="btn btn-primary">Opslaan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal-@bestemming.id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-@bestemming.id" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel-@bestemming.id">Bestemming verwijderen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" asp-page-handler="DeleteDestination">
+                    <div class="modal-body">
+                        <input type="hidden" name="destinationId" value="@bestemming.id" />
+                        <p>Weet je zeker dat je de bestemming wilt verwijderen?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleren</button>
+                        <button type="submit" class="btn btn-danger">Verwijderen</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Add Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Nieuwe bestemming toevoegen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" asp-page-handler="AddDestination">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="destinationName">Bestemming</label>
+                        <input type="text" class="form-control" id="destinationName" name="destinationName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="destinationDescription">Beschrijving</label>
+                        <textarea class="form-control" id="destinationDescription" name="destinationDescription" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="destinationImage">Afbeelding</label>
+                        <input type="text" class="form-control" id="destinationImage" name="destinationImage" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="destinationPrice">Prijs</label>
+                        <input type="text" class="form-control" id="destinationPrice" name="destinationPrice" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="modalDescription">Modal Beschrijving</label>
+                        <textarea class="form-control" id="modalDescription" name="modalDescription" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleren</button>
+                    <button type="submit" class="btn btn-primary">Toevoegen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

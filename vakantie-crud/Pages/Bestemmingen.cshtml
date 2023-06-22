@@ -1,0 +1,207 @@
+﻿@page
+@model vakantie_crud.Pages.BestemmingenModel
+@{
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Populaire bestemmingen</h2>
+    <div class="row">
+        @for (int i = 0; i < Model.Bestemmingen.Count; i++)
+        {
+            @switch (Model.Bestemmingen[i].bestemmingNaam)
+            {
+                case "Italië":
+                case "Los Angeles":
+                case "Frankrijk":
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="~/images/@Model.Bestemmingen[i].afbeelding" class="destination-img card-img-top" alt="Bestemming @(i + 1)">
+                            <div class="card-body">
+                                <h5 class="card-title">@Model.Bestemmingen[i].bestemmingNaam</h5>
+                                <p class="card-text">@Model.Bestemmingen[i].bestemmingBeschrijving</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="price">€@Model.Bestemmingen[i].bestemmingPrijs</div>
+                                    @if (Model.Bestemmingen[i].bestemmingNaam == "Italië")
+                                    {
+                                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal-italy">Meer informatie</a>
+                                    }
+                                    else if (Model.Bestemmingen[i].bestemmingNaam == "Los Angeles")
+                                    {
+                                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal-la">Meer informatie</a>
+                                    }
+                                    else if (Model.Bestemmingen[i].bestemmingNaam == "Frankrijk")
+                                    {
+                                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal-paris">Meer informatie</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    break;
+                default:
+                    break;
+            }
+        }
+    </div>
+</div>
+
+@{
+    int count = 0;
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Alle bestemmingen</h2>
+    <div class="row">
+        @foreach (var bestemming in Model.Bestemmingen)
+        {
+            if (bestemming.bestemmingNaam == "Los Angeles" || bestemming.bestemmingNaam == "Frankrijk" || bestemming.bestemmingNaam == "Italië")
+            {
+                continue;
+            }
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                @if (!bestemming.bestemmingBeschrijving.Contains("Jumbotron"))
+                {
+                    <div class="card">
+                        <img src="~/images/@bestemming.afbeelding" class="destination-img card-img-top" alt="Bestemming @(count + 1)">
+                        <div class="card-body">
+                            <h5 class="card-title">@bestemming.bestemmingNaam</h5>
+                            <p class="card-text">@bestemming.bestemmingBeschrijving</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="price">€@bestemming.bestemmingPrijs</div>
+                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal-@(count + 1)">Meer informatie</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Modal voor de bestemming -->
+            <div class="modal fade" id="modal-@(count + 1)" tabindex="-1" role="dialog" aria-labelledby="modal-@(count + 1)-label" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title" id="modal-@(count + 1)-label">@bestemming.bestemmingNaam</h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="~/images/@bestemming.afbeelding" class="img-fluid" /><br /><br />
+                            <p style="white-space: pre-wrap">@bestemming.modalBeschrijving</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Boeken</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            count++;
+        }
+    </div>
+</div>
+
+
+
+<!-- MODALS -->
+<!-- Modal Italië -->
+<div class="modal fade" id="modal-italy" tabindex="-1" role="dialog" aria-labelledby="modal-italy-label"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-italy-label">Italië</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="~/images/italy.jpg" class="img-fluid" />
+                <p>
+                    <br />
+                    Ontdek de betoverende schoonheid van Italië! Italië, bekend om zijn rijke geschiedenis, adembenemende landschappen en culinaire hoogstandjes, is een bestemming die je hart sneller doet kloppen. Van de majestueuze architectuur van Rome tot de romantische kanalen van Venetië en de schilderachtige dorpjes aan de kust van Amalfi, elke hoek van Italië biedt een unieke ervaring.<br /><br />
+
+                    Laat je betoveren door de prachtige kunstwerken van Michelangelo en Leonardo da Vinci in Florence, wandel door de eeuwenoude ruïnes van Pompeii, geniet van een gondeltocht door de grachten van Venetië, en proef de heerlijke Italiaanse gerechten, zoals verse pasta, pizza en gelato.<br /><br />
+
+                    Of je nu geïnteresseerd bent in geschiedenis, cultuur, natuur of gastronomie, Italië heeft voor elk wat wils. Laat je onderdompelen in de levendige Italiaanse cultuur, bewonder de adembenemende landschappen en maak herinneringen die een leven lang meegaan.<br /><br />
+
+                    Welkom in Italië, waar elke straat een verhaal vertelt en elke hoek een verrassing biedt. Ontdek de prachtige bestemmingen die Italië te bieden heeft en laat je verleiden door de onmiskenbare charme van dit land.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Boeken</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Los Angeles -->
+<div class="modal fade" id="modal-la" tabindex="-1" role="dialog" aria-labelledby="modal-la-label"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-la-label">Los Angeles</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="~/images/la.jpg" class="img-fluid" />
+                <p>
+                    <br />
+                    De stad van dromen en sterren. Los Angeles is een bruisende metropool gelegen aan de prachtige kust van Zuid-Californië. Bekend om zijn glamour, entertainmentindustrie en zonovergoten stranden, trekt deze stad jaarlijks miljoenen bezoekers van over de hele wereld aan.<br /><br />
+
+                    Ontdek de iconische bezienswaardigheden van Los Angeles, zoals de Hollywood Walk of Fame, waar je de namen van beroemde sterren kunt vinden, en de legendarische Hollywood-letters die de heuvels sieren. Breng een bezoek aan de beroemde Universal Studios en beleef de magie van de filmwereld van dichtbij.<br /><br />
+
+                    Los Angeles biedt ook een scala aan culturele ervaringen. Verken het Getty Center, waar je kunt genieten van adembenemende kunstcollecties en een prachtig uitzicht over de stad. Maak een wandeling over de Venice Beach Boardwalk en dompel jezelf onder in de relaxte Californische strandcultuur, compleet met skaters, straatartiesten en kleurrijke boetiekjes.<br /><br />
+
+                    Voor shopliefhebbers is Los Angeles een waar paradijs. Van de luxe boetieks op Rodeo Drive tot de trendy boetieks in Melrose Avenue, er is voor elk wat wils. Vergeet ook niet te genieten van de diverse culinaire scene van de stad, met een overvloed aan restaurants die gerechten uit alle hoeken van de wereld serveren.<br /><br />
+
+                    Laat je betoveren door de magie van Los Angeles, waar dromen werkelijkheid worden en de mogelijkheden eindeloos zijn. Boek vandaag nog je reis en ontdek de pracht en praal van deze sprankelende stad aan de Westkust van de Verenigde Staten.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Boeken</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Parijs -->
+<div class="modal fade" id="modal-paris" tabindex="-1" role="dialog" aria-labelledby="modal-paris-label"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-paris-label">Parijs</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="~/images/france.jpg" class="img-fluid" />
+                <p>
+                    <br />
+                    De stad van liefde en romantiek. Parijs, de hoofdstad van Frankrijk, is een betoverende bestemming die bekend staat om zijn prachtige architectuur, kunst, mode en gastronomie. Met iconische bezienswaardigheden zoals de Eiffeltoren, de Notre-Dame, het Louvre en de Champs-Élysées, trekt Parijs jaarlijks miljoenen bezoekers van over de hele wereld aan.<br /><br />
+
+                    Verken de charmante straatjes van Montmartre, waar kunstenaars hun meesterwerken creëren en je kunt genieten van een adembenemend uitzicht over de stad vanaf de Sacré-Cœur. Maak een romantische boottocht over de Seine en bewonder de prachtige bruggen en monumenten langs de oevers.<br /><br />
+
+                    Parijs staat ook bekend om zijn wereldberoemde keuken. Geniet van heerlijke croissants, baguettes, kaas en wijn in gezellige Parijse cafés en restaurants. Bezoek de levendige markten, zoals de Marché d'Aligre en de Marché aux Puces de Saint-Ouen, en proef de culinaire hoogstandjes van de stad.<br /><br />
+
+                    Naast de historische en culturele bezienswaardigheden heeft Parijs ook een bruisend nachtleven. Ga naar de trendy bars en clubs in de wijk Le Marais of geniet van een avond vol entertainment in de beroemde Moulin Rouge.<br /><br />
+
+                    Laat je betoveren door de romantiek en elegantie van Parijs, waar elke hoek van de stad een nieuw avontuur en een nieuwe ontdekking biedt. Boek vandaag nog je reis en beleef de magie van deze onvergetelijke bestemming.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Boeken</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+            </div>
+        </div>
+    </div>
+</div>
