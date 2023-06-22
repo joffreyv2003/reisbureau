@@ -17,7 +17,8 @@ Voor de gebruiker zijn er momenteel nog geen bijzonderheden als er ingelogd word
 2. Klik bovenaan op de pagina op de groene code knop. 
 3. Download het project door op ```Download ZIP``` te klikken.
 4. Plaats het gedownloadde project ergens op je **computer**. De desktop is hier het beste voor. 
-5. Open Visual Studio - LET OP! Het moet exact de Visual Studio Community 2019 versie zijn, anders werkt de applicatie niet!
+5. Open Visual Studio.<br>
+   ``LET OP!`` Het moet exact de Visual Studio Community 2019 versie zijn, anders werkt de applicatie niet!
 6. Klik op ``Open project or solution`` en open het **vakantie-crud.sln** bestand.
 7. Voordat je het project start, moet er nog een ding gedaan worden. 
 8. Ga bovenaan de pagina naar ``Project > Manage NuGet Packages...``.
