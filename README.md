@@ -37,7 +37,7 @@ wachtwoord: gebruiker<br>
 gebruikersnaam: admin<br>
 wachtwoord: admin
 
-## 🌍 Bestemming Plaatjes
+## 🌍 Bestemming Afbeeldingen
 
 Momenteel is er nog niet een manier om een custom plaatje te uploaden in de dashboard. Let er dus op dat als je een bestemming verwijderd, deze weer toegevoegd kan worden, maar wel alleen met
 de namen hieronder:
